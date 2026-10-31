@@ -1,1 +1,22 @@
 .custom-content{margin:auto 0}.custom-content h3{font-size:24px;letter-spacing:-.04em;margin:12px 0;color:#e9f0df}.custom-content p{color:#9fa999;font-size:12px;line-height:1.7;white-space:pre-wrap;margin:0}.custom-link{font:10px 'DM Mono',monospace;letter-spacing:.1em;color:#d5f26a;text-decoration:none}.custom-link:hover{text-decoration:underline}
+
+/* Give the dashboard itself the available screen, keeping controls close at hand. */
+.rail{width:48px;padding:12px 0}.logo{font-size:23px}.rail-line{margin:15px 0;width:24px}.rail-btn{width:34px;height:34px;font-size:18px;margin-bottom:5px}.rail-bottom{gap:8px}
+main{margin-left:48px;width:calc(100% - 48px);max-width:none;padding:12px 16px 12px}
+header{align-items:center;min-height:43px}.brand{display:flex;align-items:baseline;gap:12px;min-width:0}.brand .eyebrow,.brand p{display:none}.brand h1{font-size:24px;line-height:1;margin:0;white-space:nowrap}.head-actions{gap:7px}.today{margin-right:12px;gap:3px}.today span{font-size:8px}.today b{font-size:10px}.icon-btn,.edit-btn{height:36px}.icon-btn{width:36px;font-size:16px}.edit-btn{padding:0 12px}
+.section-head{margin:9px 0 10px;font-size:9px}.section-sub{margin-left:10px}.status{font-size:8px}
+.grid{grid-auto-rows:max(210px,calc((100vh - 101px) / 2));gap:10px}.card{padding:18px}.card.tall{grid-row:span 1}.calendar-month{font-size:22px;margin:12px 0 6px}.calendar-grid{gap:1px}.calendar-grid span{height:20px}.clock{font-size:clamp(48px,6vw,100px)}
+.add-inline{height:48px;margin-top:10px}footer{display:none}
+@media(max-width:1000px){.grid{grid-auto-rows:245px}.section-head{margin:9px 0 10px}}
+@media(max-width:620px){.app main{margin-left:48px;width:calc(100% - 48px);padding:10px}.brand h1{font-size:19px}.head-actions .today{display:none}.grid{grid-auto-rows:245px}.card.tall{grid-row:span 1}.section-sub,.status{display:none}}
+
+/* User-selected sizes use grid cells and adapt to narrower screens. */
+.grid .card{grid-column:span var(--card-width,1);grid-row:span var(--card-height,1)}
+.grid .card[data-width="1"] .clock{font-size:clamp(35px,4vw,60px)}
+.editing .edit-controls{left:12px;right:12px;align-items:center;gap:5px;justify-content:flex-end}
+.editing .card-top{padding-right:0;margin-top:32px}
+.editing .calendar-grid span{height:17px}
+.size-control{display:flex;align-items:center;gap:3px;color:#cbd3c2;font-size:9px;white-space:nowrap}
+.size-control select{background:#30362a;border:0;border-radius:4px;color:#e5ebda;height:25px;font:10px 'Noto Sans JP',sans-serif;padding:0 2px;cursor:pointer}
+@media(max-width:1000px){.grid .card[data-width="3"],.grid .card[data-width="4"]{grid-column:span 2}}
+@media(max-width:620px){.grid .card{grid-column:span 1}}

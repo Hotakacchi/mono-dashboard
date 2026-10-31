@@ -3,5 +3,5 @@
   "productName": "MONO", "version": "0.1.0", "identifier": "app.mono.dashboard",
   "build": { "frontendDist": "../renderer" },
   "app": { "withGlobalTauri": true, "windows": [{ "title": "MONO", "width": 1440, "height": 900, "minWidth": 600, "minHeight": 500, "backgroundColor": "#101110" }], "security": { "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src ipc: http://ipc.localhost; frame-src https: http:" } },
-  "bundle": { "active": true, "targets": "all" }
+  "bundle": { "active": true, "targets": "all", "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"] }
 }

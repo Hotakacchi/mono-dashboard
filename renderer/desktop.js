@@ -50,5 +50,31 @@
     } catch (e) { alert(`読み込めませんでした：${e.message}`); }
   };
   document.querySelector('#choices').append(pluginButton);
+
+  // A size is measured in grid cells. Existing layouts keep their original widths.
+  const cardWithoutSize = card;
+  const bindWithoutSize = bind;
+  const dimension = (value, fallback, max) => Number.isInteger(value) && value >= 1 && value <= max ? value : fallback;
+  card = function(c, i) {
+    const defaultWidth = ['clock', 'quote', 'embed'].includes(c.type) ? 2 : 1;
+    const width = dimension(c.width, defaultWidth, 4);
+    const height = dimension(c.height, 1, 2);
+    const options = (max, selected, unit) => Array.from({length:max}, (_, index) => {
+      const n = index + 1;
+      return `<option value="${n}" ${n === selected ? 'selected' : ''}>${n}${unit}</option>`;
+    }).join('');
+    const controls = `<label class="size-control">幅<select class="size-width" aria-label="${esc(defs[c.type]?.[1] || c.title || 'ウィジェット')}の幅">${options(4, width, '列')}</select></label><label class="size-control">高さ<select class="size-height" aria-label="${esc(defs[c.type]?.[1] || c.title || 'ウィジェット')}の高さ">${options(2, height, '行')}</select></label>`;
+    return cardWithoutSize(c, i)
+      .replace('<article class=', `<article data-width="${width}" style="--card-width:${width};--card-height:${height}" class=`)
+      .replace('<div class="edit-controls">', `<div class="edit-controls">${controls}`);
+  };
+  bind = function() {
+    bindWithoutSize();
+    document.querySelectorAll('.card').forEach(el => {
+      const item = state.cards.find(c => String(c.id) === el.dataset.id);
+      el.querySelector('.size-width').onchange = event => { item.width = Number(event.target.value); save(); render(); };
+      el.querySelector('.size-height').onchange = event => { item.height = Number(event.target.value); save(); render(); };
+    });
+  };
   render();
 })();
