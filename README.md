@@ -1,2 +1,49 @@
-# mono-dashboard
-A lightweight, customizable dashboard for your second screen.
+# MONO
+
+自分のペースで使う、サブモニター向けの小さなデスクトップダッシュボード。時計、カレンダー、メモ、フォーカスタイマー、リンク、Web 埋め込みを並べられます。
+
+## 使い方
+
+- 「レイアウトを編集」からカードをドラッグして並べ替え、矢印でも移動できます。「＋」で追加、×で削除します。
+- メモと配置は、このアプリの端末内のデータ領域に自動保存されます。別の端末とは同期されません。
+- 上部の「⇅」からバックアップを JSON に書き出し、復元できます。復元すると現在の配置とメモを置き換えます。
+- 「⛶」で全画面表示。終了するときは再度ボタンを押してください。
+- 埋め込み先によっては、そのサイトの設定で表示できません。タイマーは実行中にウィンドウを閉じるとリセットされます。
+
+## 開発
+
+Node.js、npm、Rust、および各 OS の Tauri 2 の前提環境が必要です。[Tauri の前提環境](https://v2.tauri.app/start/prerequisites/)を参照してください。Windows は WebView2、macOS はシステムの WebKit、Linux は WebKitGTK を使います。
+
+```sh
+npm ci
+npm start
+npm run check
+npm run dist
+```
+
+`npm run dist` は現在の OS 向けの配布ファイルを `src-tauri/target/release/bundle/` に作ります。各 OS 向けのビルドはそれぞれの OS 上で行ってください。GitHub Actions のワークフローは Windows・macOS・Linux それぞれでビルドし、成果物をアップロードします。署名やストアへの公開は設定していません。
+
+## カスタムウィジェット
+
+追加ダイアログの「カスタムを読み込む」で、`plugins/example.json` のような JSON を選択します。`title` と `body` は必須、`url` と `linkLabel` は任意です。リンクには http または https を使用します。
+
+```json
+{
+  "format": "mono-widget",
+  "version": 1,
+  "title": "今日のテーマ",
+  "body": "ひとつずつ、丁寧に。",
+  "url": "https://example.com",
+  "linkLabel": "OPEN"
+}
+```
+
+これはテキストとリンクを表示する宣言的な形式です。外部コードを実行するプラグイン API やマーケットプレイスではありません。インポートした内容はダッシュボードのバックアップにも含まれます。
+
+## プライバシーとネットワーク
+
+配置やメモはローカルに保存されます。Google Fonts の読み込み、ユーザーが開いた外部リンク、設定した埋め込みページはネットワークに接続します。埋め込み先にはそのサイトのプライバシーポリシーが適用されます。
+
+## ライセンス
+
+MIT License。詳細は [LICENSE](LICENSE) を参照してください。配布する前に著作権表示や貢献者の扱いがプロジェクトに合うか確認してください。
